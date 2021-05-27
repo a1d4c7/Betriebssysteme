@@ -15,7 +15,7 @@ class Debugger {
 public:
 	Debugger(PrintStream& out) : mitteilungsAusgabekanal(out)
 	{
-		join = false;
+		//join = false;
 	}
 
 	void fehler(const char* str)
@@ -36,7 +36,7 @@ public:
 		mitteilungsAusgabekanal.print(", ");
 	}
 
-	bool join;
+	//bool join;
 
 protected:
 	
