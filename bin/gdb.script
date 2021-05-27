@@ -1,0 +1,4 @@
+set architecture i386
+target remote :1234
+break main
+

@@ -1,0 +1,29 @@
+###############################################################
+# bochsrc.txt file for DLX Linux disk image.
+###############################################################
+
+# how much memory the emulated machine will have
+megs: 64
+
+display_library: sdl2
+
+# filename of ROM images
+romimage: file=/usr/local/share/bochs/BIOS-bochs-latest
+vgaromimage: file=/usr/local/share/bochs/VGABIOS-lgpl-latest
+
+# what disk images will be used
+ata0-master: type=cdrom, path=costubs.iso, status=inserted
+
+# choose the boot disk.
+boot: cdrom
+
+# where do we send log messages?
+log: bochsout.txt
+
+clock: sync=realtime, time0=1
+
+#keyboard_type: at
+#keyboard_mapping:enabled=1, map=/usr/local/share/bochs/keymaps/sdl-pc-de.map
+
+# newer bochs versions:
+keyboard: type=at, keymap=/usr/local/share/bochs/keymaps/sdl2-pc-de.map
