@@ -41,27 +41,15 @@ SYSTEM_CC = \
 	$(INITFINI) \
 	device/CgaChannel.cc \
 	device/CgaScreen.cc \
-	device/Clock.cc \
-	device/PIC.cc \
-	device/PIT.cc \
-
-	interrupts/Gate.cc \
-	interrupts/InterruptGuardian.cc \
-	interrupts/PageFaultGate.cc \
-	interrupts/PanicGate.cc \
-	interrupts/SpuriousGate.cc \
-
 	io/PrintStream.cc \
-
 	lib/Queue.cc \
-	
 	thread/Activity.cc \
 	thread/ActivityScheduler.cc \
 	thread/Coroutine.cc \
 	thread/Scheduler.cc \
-
-	mainInt.cc \
-	
+	mainAct.cc \
+	#mainCo.cc \
+	#main.cc \
 	
 	
 
