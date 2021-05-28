@@ -40,6 +40,9 @@ private:
 		DATA_PORT 	= 0x40
 	};
 
+	IOPort8 ctrl;
+	IOPort8 data;
+
 };
 
 extern PIT pit;
