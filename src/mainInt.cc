@@ -32,11 +32,12 @@ public:
 
 	void body()
 	{
+
 		for(int i=0; i<10; i++) {
-			cout.print(name);
-			cout.print(" ");
-			cout.print(i);
-			cout.println();
+			//cout.print(name);
+			//cout.print(" ");
+			//cout.print(i);
+			//cout.println();
 
 			yield();
 		}

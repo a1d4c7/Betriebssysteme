@@ -1,13 +1,16 @@
     #include "device/Clock.h"
     #include "interrupts/InterruptVector.h"
+	#include "device/PIC.h"
     
+	#include "io/PrintStream.h"
+	extern PrintStream out; 
+
     /**	Spaetere Initialisierung...
 	 *	Hier ist nur im Konstruktor dafuer zu sorgen,
 	 *	dass sich Gate korrekt initialisieren kann
 	 */
-	Clock::Clock () : Gate(Timer) //keine ahnung ob gate richtig ist so
+	Clock::Clock () : Gate(Timer), PIT(), tickCount(0)
     {
-
     }
 
 	/**	Initialisierung des "Ticks" der Uhr
@@ -18,9 +21,9 @@
 	 *	Zum Testen koennt Ihr bei Bedarf einen hoeheren Wert einstellen
 	 *	Weitere Hinweise zur Implementierung siehe "windup"
 	 */
-	Clock::Clock (int us) : Gate(Timer) //keine ahnung ob gate richtig ist so
+	Clock::Clock (int us) : Gate(Timer), PIT(), tickCount(0)
     {
-
+		windup(us);
     }
 
 	/**	Initialisierung des "Ticks" der Uhr
@@ -30,7 +33,9 @@
 	 */
 	void Clock::windup(int us)
     {
+		interval(us);
 
+		pic.enable(PIC::PIT);
     }
 
 	/** 	Der Interrupt-Handler fuer die Uhr.
@@ -57,5 +62,21 @@
 	 */
 	void Clock::handle()
     {
+		pic.ack();
+		tickCount += 1;
+
+		if (tickCount % 40 == 0) 
+		{
+			switch (tickCount % 160)
+			{
+			case 0: out.print("\r/"); break;
+     		case 1: out.print("\r-"); break;
+      		case 2: out.print("\r\\"); break;
+     		case 3: out.print("\r|"); break;
+			
+			default:
+				break;
+			}
+		}
 
     }

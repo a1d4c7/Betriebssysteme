@@ -29,9 +29,9 @@
 		//zaehlerreg
 		// us & 0xff dann (us >> 8) & 0xff
 
-		char c =                      0b00110100; 	//ctrl wort
-		char l =  (us * TIME_BASE)        & 0xff;	//niedrige 8 bit
-		char h = ((us * TIME_BASE) >> 8)  & 0xff; 	//hohe     8 bit
+		char c =                             0b00110100; 	//ctrl wort
+		char l =  (us * 1000 / TIME_BASE)        & 0xff;	//niedrige 8 bit
+		char h = ((us * 1000 / TIME_BASE) >> 8)  & 0xff; 	//hohe     8 bit
 		
 		ctrl.write(c);
 		data.write(l);
