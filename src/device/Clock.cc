@@ -65,18 +65,21 @@
 		pic.ack();
 		tickCount += 1;
 
+		//if (tickCount % 40 == 0) out.print("#"); //ein zeichen pro sekunde ausgeben
+
+		// /* //propeller
 		if (tickCount % 40 == 0) 
 		{
 			switch (tickCount % 160)
 			{
-			case 0: out.print("\r/"); break;
-     		case 1: out.print("\r-"); break;
-      		case 2: out.print("\r\\"); break;
-     		case 3: out.print("\r|"); break;
-			
-			default:
-				break;
+				case 0 * 40: out.print("\r/"); break;
+				case 1 * 40: out.print("\r-"); break;
+				case 2 * 40: out.print("\r\\"); break;
+				case 3 * 40: out.print("\r|"); break;	
+				default:
+					break;
 			}
 		}
+		// */
 
     }
