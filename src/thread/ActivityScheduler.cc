@@ -9,7 +9,6 @@
 	 */
 	void ActivityScheduler::suspend()
     {
-        //debuggi.fehler(" AS:suspend ");
         Activity* running = (Activity*) active();
         running->changeTo(Activity::BLOCKED);
         scheduler.reschedule();
@@ -24,8 +23,6 @@
 	 */
 	void ActivityScheduler::kill(Activity* a)
     {
-        //debuggi.fehler(" AS:kill ");
-        //TODO eventuell
         a->changeTo(Activity::ZOMBIE);
 
         Activity* running = (Activity*) active();
@@ -47,10 +44,6 @@
 	 */
 	void ActivityScheduler::exit()
     {
-        //debuggi.fehler(" AS:exit ");
-        //TODO eventuell
-        //debuggi.fehler("exit von AS");
-
         Activity* running = (Activity*) active();
 
         this->kill(running);
@@ -63,9 +56,7 @@
 	 * zu �bergeben.
 	 */
 	void ActivityScheduler::activate(Schedulable* to)
-    {
-        //TODO
-       
+    {       
         //wenn to = 0 sind dann ist readyliste leer
         //falls readyliste leer ist, auf naechste activity warten
         if (to == 0)
@@ -76,9 +67,7 @@
 
             while (empty)
             {
-                //if (debuggi.join) 
-                //debuggi.line("empty queue loop");
-                //if (debuggi.join) debuggi.join = false;
+                
 
 
                 to = (Schedulable*) readylist.dequeue();
@@ -89,4 +78,22 @@
         ((Activity*) to)->changeTo(Activity::RUNNING);
         dispatch((Activity*) to);
     
+    }
+
+
+    /* Ueberprueft ob die Zeitscheibe des aktuell laufenden
+	 * Prozesses abgelaufen ist. Wenn ja, soll ein 
+	 * Rescheduling veranlast werden.
+	 */
+	void ActivityScheduler::checkSlice()
+    {
+        Activity* running = (Activity*) active();
+
+        running->tick();
+        
+        if (running->quantum() == running->getTicks())
+        {
+            running->setTicks(0);
+            reschedule();
+        }
     } 

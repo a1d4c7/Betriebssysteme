@@ -34,6 +34,16 @@ protected:
 	 */
 	virtual void activate(Schedulable* to) = 0;
 
+	/* Wird erst vom ActivityScheduler implementiert.
+	 * Ist hier vielleicht unnoetig.
+	 *
+	 * 
+	 * Ueberprueft ob die Zeitscheibe des aktuell laufenden
+	 * Prozesses abgelaufen ist. Wenn ja, soll ein 
+	 * Rescheduling veranlast werden.
+	 */
+	virtual void checkSlice() = 0;
+
 	// Die Ready-Liste
 	Queue readylist;
 

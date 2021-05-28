@@ -1,8 +1,10 @@
     #include "device/Clock.h"
     #include "interrupts/InterruptVector.h"
 	#include "device/PIC.h"
-    
-	#include "io/PrintStream.h"
+	#include "thread/ActivityScheduler.h"
+
+
+	#include "io/PrintStream.h" //propeller test
 	extern PrintStream out; 
 
     /**	Spaetere Initialisierung...
@@ -65,9 +67,16 @@
 		pic.ack();
 		tickCount += 1;
 
+		scheduler.reschedule(); //noch zu testen
+
+		//scheduler.checkSlice(); //noch zu testen
+
+
+		//testfaelle
+
 		//if (tickCount % 40 == 0) out.print("#"); //ein zeichen pro sekunde ausgeben
 
-		// /* //propeller
+		/* //propeller
 		if (tickCount % 40 == 0) 
 		{
 			switch (tickCount % 160)

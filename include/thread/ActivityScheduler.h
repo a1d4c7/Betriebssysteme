@@ -48,6 +48,12 @@ public:
 	 */
 	void exit();
 
+	/* Ueberprueft ob die Zeitscheibe des aktuell laufenden
+	 * Prozesses abgelaufen ist. Wenn ja, soll ein 
+	 * Rescheduling veranlast werden.
+	 */
+	virtual void checkSlice();
+
 protected:
 	/* Der aktive Prozess ist, sofern er sich nicht im Zustand
 	 * Blocked oder Zombie befindet, wieder auf die Ready-Liste

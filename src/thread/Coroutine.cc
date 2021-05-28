@@ -1,5 +1,6 @@
 #include "thread/Coroutine.h"
 #include "lib/Debugger.h"
+#include "device/CPU.h"
 
     struct SetupFrame {
         unsigned edi; // nichtfl. Register
@@ -27,6 +28,8 @@
 	 */
 	void Coroutine::startup(Coroutine* obj)
     {
+        CPU::enableInterrupts();
+        
         obj->body();
         //debuggi.fehler("call exit");
         obj->exit();
