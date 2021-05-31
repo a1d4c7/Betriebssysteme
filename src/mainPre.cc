@@ -48,8 +48,13 @@ public:
 				cout.print(i);
 				cout.println();
 			}
-            for(int j=0; j<10000; j++);
+            
+			for(int j=0; j<10000; j++)
+			{
+				yield();
+			}
 		}
+		
 	}
 
 	void setQuantum(int slice)

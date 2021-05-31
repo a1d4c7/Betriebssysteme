@@ -2,7 +2,7 @@
 #include "thread/Coroutine.h"
 #include "thread/Schedulable.h"
 #include "thread/ActivityScheduler.h"
-#include "lib/Debugger.h"
+#include "interrupts/IntLock.h"
 
 
 
@@ -47,6 +47,8 @@
 	 */
 	void Activity::sleep()
     {
+		IntLock lock;
+
 		//falls die activity nicht laeuft muss nur der status geaendert werden
 		if (!this->isRunning()) 
 		{
@@ -65,6 +67,8 @@
 	 */
 	void Activity::wakeup()
     {
+		IntLock lock;
+
 		//um zu verhindern das auf nicht wartenden activities wakeup aufgerufen wird
 		if (this->isBlocked())
 		{
@@ -77,6 +81,8 @@
 	 */
 	void Activity::yield()
     {
+		IntLock lock;
+
 		this->changeTo(READY);
 		
 		scheduler.reschedule();
@@ -88,6 +94,8 @@
 	 */
 	void Activity::exit()
     {
+		IntLock lock;
+
 		if (joined != 0)
 		{
 			joined->wakeup();
@@ -104,6 +112,8 @@
 	 */
 	void Activity::join()
     {
+		IntLock lock;
+		
 		Activity* running = (Activity*) scheduler.active();
 		joined = running;
 

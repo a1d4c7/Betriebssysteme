@@ -1,5 +1,6 @@
 #include "thread/ActivityScheduler.h"
 #include "thread/Activity.h"
+#include "interrupts/IntLock.h"
 
 #include "lib/Debugger.h"
 
@@ -9,6 +10,8 @@
 	 */
 	void ActivityScheduler::suspend()
     {
+        IntLock lock;
+
         Activity* running = (Activity*) active();
         running->changeTo(Activity::BLOCKED);
         scheduler.reschedule();
@@ -23,6 +26,8 @@
 	 */
 	void ActivityScheduler::kill(Activity* a)
     {
+        IntLock lock;
+        
         a->changeTo(Activity::ZOMBIE);
 
         Activity* running = (Activity*) active();
@@ -44,6 +49,8 @@
 	 */
 	void ActivityScheduler::exit()
     {
+        IntLock lock;
+
         Activity* running = (Activity*) active();
 
         this->kill(running);
@@ -57,26 +64,23 @@
 	 */
 	void ActivityScheduler::activate(Schedulable* to)
     {     
+        IntLock lock;
+
         Activity* run = (Activity*) active();
         if (!(run->isBlocked() || run->isZombie()))
         {
-            if (run->isRunning()) run->changeTo(Activity::BLOCKED);
+            if (run->isRunning()) run->changeTo(Activity::READY);
             scheduler.schedule(run);
         }  
-        
+
         //wenn to = 0 sind dann ist readyliste leer
         //falls readyliste leer ist, auf naechste activity warten
         if (to == 0)
         {
             bool empty = true;
 
-            //debuggi.join = true;
-
             while (empty)
             {
-                
-
-
                 to = (Schedulable*) readylist.dequeue();
                 if (to != 0) empty = false;
             }
@@ -94,6 +98,8 @@
 	 */
 	void ActivityScheduler::checkSlice()
     {
+        IntLock lock;
+        
         Activity* running = (Activity*) active();
 
         running->tick();

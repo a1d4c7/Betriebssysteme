@@ -2,6 +2,7 @@
     #include "interrupts/InterruptVector.h"
 	#include "device/PIC.h"
 	#include "thread/ActivityScheduler.h"
+	#include "interrupts/IntLock.h"
 
 
 	#include "io/PrintStream.h" //propeller test
@@ -64,6 +65,8 @@
 	 */
 	void Clock::handle()
     {
+		IntLock lock;
+
 		pic.ack();
 		tickCount += 1;
 

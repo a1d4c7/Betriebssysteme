@@ -1,23 +1,24 @@
 ActivityScheduler:
-    suspend();      _/
-    kill();         _/
-    exit();         _/
-    activate();     _/
-    checkSlice();   _/
+    suspend();      _/ +      
+    kill();         _/ +
+    exit();         _/ +
+    activate();     _/ +
+    checkSlice();   _/ +
 
 Scheduler:
-    schedule();     _/
-    remove();       _/
-    reschedule();   _/
+    schedule();     _/ +
+    remove();       _/ +
+    reschedule();   _/ +
 
 Clock:
-    handle(); //sollte nicht möglich sein, wäre aber seht doof
-              //könnte sogar ok sein
+    handle();       _/ +    //sollte nicht möglich sein, wäre aber seht doof
+                            //könnte sogar ok sein
 
 Activity:           muss eventuell auch nicht
-    sleep();        _/  da wir suspendieren ändern readylist mit remove()
-    wakeup();       _/  ändern readylist mit schedule()
-    yield();        _/  reschedule()
-    exit();         _/  wakeup()
-    join();         _/  sleep()
+    ~Activity();    eventuell???
+    sleep();        _/ +    da wir suspendieren ändern readylist mit remove()
+    wakeup();       _/ +    ändern readylist mit schedule()
+    yield();        _/ +    reschedule()
+    exit();         _/ +    wakeup()
+    join();         _/ +    sleep()
     
