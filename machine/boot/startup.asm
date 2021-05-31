@@ -24,7 +24,6 @@
 
 csym idt
 csym main
-csym guardian
 csym _init
 csym _fini
 csym virtualPanic
@@ -47,7 +46,6 @@ csym _alloca
 
 
 [EXTERN main]
-[EXTERN guardian]
 [EXTERN _init]
 [EXTERN _fini]
 [EXTERN virtualPanic]
@@ -176,7 +174,8 @@ wrapper_body:
 	push	edx
 	and	eax,0xff	; Der generierte Wrapper liefert nur 8 Bits
 	push	eax		; Nummer der Unterbrechung uebergeben
-	call	guardian	; XXX noch nicht benoetigt fuer auf1!
+    cmp    al, 14  ; pagefault?
+    je     page_fault_handler
 	add	esp,4		; Parameter vom Stack entfernen
 	pop	edx		; fluechtige Register wieder herstellen
 	pop	ecx
