@@ -40,6 +40,7 @@
 	 */
 	Activity::~Activity()
     {
+		IntLock lock;
         scheduler.kill(this);
     }
 
@@ -113,7 +114,7 @@
 	void Activity::join()
     {
 		IntLock lock;
-		
+
 		Activity* running = (Activity*) scheduler.active();
 		joined = running;
 
