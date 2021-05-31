@@ -1,4 +1,5 @@
 #include "thread/Scheduler.h"
+#include "lib/Debugger.h"
 
     // Einfuegen eines neuen Elements in die Ready-Liste.
 	void Scheduler::schedule(Schedulable* sched)

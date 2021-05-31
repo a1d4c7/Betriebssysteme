@@ -10,6 +10,8 @@
 #include "interrupts/InterruptGuardian.h"
 #include "interrupts/IntLock.h"
 
+#include "lib/Debugger.h"
+
 // Hello: Eine kooperative Aktivitaet
 //
 // Anmerkung: Diese Klasse dient
@@ -38,7 +40,7 @@ public:
 
 	void body()
 	{
-		for(int i=0; i<5; i++) {
+		for(int i=0; i<5 + 2; i++) {
 			{
 				IntLock lock;
 				cout.print(name);
@@ -48,6 +50,11 @@ public:
 			}
             for(int j=0; j<10000; j++);
 		}
+	}
+
+	void setQuantum(int slice)
+	{
+		quantum(slice);
 	}
 
 private:
@@ -68,6 +75,8 @@ Clock clock(2500);
 CgaChannel cga;         // unser CGA-Ausgabekanal
 PrintStream out(cga);   // unseren PrintStream mit Ausgabekanal verknuepfen
 
+Debugger debuggi(out);
+
 // Objekte der Prozessverwaltung
 ActivityScheduler scheduler;   // der Scheduler
 
@@ -80,6 +89,10 @@ int main()
 	Hello anton("Anton", out); // anton benutzt den Stack von main
 	Hello berta("Berta", out, &stack0[1024]);
 	Hello caesar("Caesar", out, &stack1[1024]);
+
+	anton.setQuantum(1);
+	berta.setQuantum(1);
+	caesar.setQuantum(1);
 
 	cpu.enableInterrupts();
 	anton.body();

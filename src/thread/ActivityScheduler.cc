@@ -56,7 +56,14 @@
 	 * zu �bergeben.
 	 */
 	void ActivityScheduler::activate(Schedulable* to)
-    {       
+    {     
+        Activity* run = (Activity*) active();
+        if (!(run->isBlocked() || run->isZombie()))
+        {
+            if (run->isRunning()) run->changeTo(Activity::BLOCKED);
+            scheduler.schedule(run);
+        }  
+        
         //wenn to = 0 sind dann ist readyliste leer
         //falls readyliste leer ist, auf naechste activity warten
         if (to == 0)
@@ -91,7 +98,7 @@
 
         running->tick();
         
-        if (running->quantum() == running->getTicks())
+        if (running->getTicks() >= running->quantum())
         {
             running->setTicks(0);
             reschedule();

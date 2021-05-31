@@ -67,9 +67,9 @@
 		pic.ack();
 		tickCount += 1;
 
-		scheduler.reschedule(); //noch zu testen
+		//scheduler.reschedule(); 
 
-		//scheduler.checkSlice(); //noch zu testen
+		scheduler.checkSlice(); //noch zu testen
 
 
 		//testfaelle

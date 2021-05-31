@@ -50,15 +50,11 @@
 		//falls die activity nicht laeuft muss nur der status geaendert werden
 		if (!this->isRunning()) 
 		{
-			//if (debuggi.join) 
-			//debuggi.line("sleep, not run");
 			this->changeTo(BLOCKED);
 			scheduler.remove(this);
 		}
 		else
 		{
-			//if (debuggi.join) 
-			//debuggi.line("sleep, run"); //<--------------
 			scheduler.suspend();	
 		}
 		
@@ -83,7 +79,6 @@
     {
 		this->changeTo(READY);
 		
-		scheduler.schedule(this);
 		scheduler.reschedule();
 		
     }
