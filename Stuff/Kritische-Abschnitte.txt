@@ -1,17 +1,17 @@
 ActivityScheduler:
-    suspend();      _/ +      
-    kill();         _/ +
-    exit();         _/ +
-    activate();     _/ +
-    checkSlice();   _/ +
+    suspend();      _/ + active*     
+    kill();         _/ + active*
+    exit();         _/ + active*
+    activate();     _/ + sollte locked sein durch reschedule
+    checkSlice();   _/ + wichtig
 
 Scheduler:
-    schedule();     _/ +
-    remove();       _/ +
-    reschedule();   _/ +
+    schedule();     _/ + sehr wichtig
+    remove();       _/ + sehr wichtig
+    reschedule();   _/ + sehr wichtig
 
 Clock:
-    handle();       _/ +    //sollte nicht möglich sein, wäre aber seht doof
+    handle();       _/ +    //sollte nicht möglich sein, wäre aber sehr doof oder auch nicht
                             //könnte sogar ok sein
 
 Activity:           muss eventuell auch nicht
