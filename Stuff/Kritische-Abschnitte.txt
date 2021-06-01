@@ -20,5 +20,5 @@ Activity:           muss eventuell auch nicht
     wakeup();       _/ +    ändern readylist mit schedule()
     yield();        _/ +    reschedule()
     exit();         _/ +    wakeup()
-    join();         _/ +    sleep()
+    join();         _/ +    sleep() 
     
