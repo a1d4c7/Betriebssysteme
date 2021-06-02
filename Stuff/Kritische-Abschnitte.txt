@@ -15,9 +15,9 @@ Clock:
 
 Activity:           muss eventuell auch nicht
     ~Activity();    eventuell???
-    sleep();        _/ +    da wir suspendieren ändern readylist mit remove()
-    wakeup();       _/ +    ändern readylist mit schedule()
-    yield();        _/ +    reschedule()
-    exit();         _/ +    wakeup()
-    join();         _/ +    sleep() 
+    sleep();        _/ -    da wir suspendieren ändern readylist mit remove()
+    wakeup();       _/ -    ändern readylist mit schedule()
+    yield();        _/ -    reschedule()
+    exit();         _/ -    wakeup()
+    join();         _/ -    sleep() 
     
