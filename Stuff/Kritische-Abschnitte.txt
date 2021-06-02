@@ -6,13 +6,12 @@ ActivityScheduler:
     checkSlice();   _/ + wichtig
 
 Scheduler:
-    schedule();     _/ + sehr wichtig
-    remove();       _/ + sehr wichtig
-    reschedule();   _/ + sehr wichtig
+    schedule();     _/ + sehr wichtig | readylist
+    remove();       _/ + sehr wichtig | readylist
+    reschedule();   _/ + sehr wichtig | readylist
 
 Clock:
-    handle();       _/ +    //sollte nicht möglich sein, wäre aber sehr doof oder auch nicht
-                            //könnte sogar ok sein
+    handle();       _/ + kein kritischer Abschnitt 
 
 Activity:           muss eventuell auch nicht
     ~Activity();    eventuell???

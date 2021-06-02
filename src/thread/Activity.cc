@@ -40,7 +40,7 @@
 	 */
 	Activity::~Activity()
     {
-		IntLock lock;
+		//IntLock lock;
         scheduler.kill(this);
     }
 
@@ -48,7 +48,7 @@
 	 */
 	void Activity::sleep()
     {
-		IntLock lock;
+		//IntLock lock;
 
 		//falls die activity nicht laeuft muss nur der status geaendert werden
 		if (!this->isRunning()) 
@@ -68,7 +68,7 @@
 	 */
 	void Activity::wakeup()
     {
-		IntLock lock;
+		//IntLock lock;
 
 		//um zu verhindern das auf nicht wartenden activities wakeup aufgerufen wird
 		if (this->isBlocked())
@@ -82,7 +82,7 @@
 	 */
 	void Activity::yield()
     {
-		IntLock lock;
+		//IntLock lock;
 
 		this->changeTo(READY);
 		
@@ -95,7 +95,7 @@
 	 */
 	void Activity::exit()
     {
-		IntLock lock;
+		//IntLock lock;
 
 		if (joined != 0)
 		{
@@ -113,7 +113,7 @@
 	 */
 	void Activity::join()
     {
-		IntLock lock;
+		//IntLock lock;
 
 		Activity* running = (Activity*) scheduler.active();
 		joined = running;
