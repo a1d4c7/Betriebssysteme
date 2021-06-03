@@ -65,19 +65,19 @@
 	 */
 	void Clock::handle()
     {
-		pic.ack();
 		tickCount += 1;
-
+		pic.ack();
+		
 		//scheduler.reschedule(); 
 
-		//scheduler.checkSlice();
+		scheduler.checkSlice();
 
 
 		//testfaelle
 
 		//if (tickCount % 40 == 0) out.print("#"); //ein zeichen pro sekunde ausgeben
 
-		 //propeller
+		/* //propeller
 		if (tickCount % 40 == 0) 
 		{
 			switch (tickCount % 160)

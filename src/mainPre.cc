@@ -52,7 +52,7 @@ public:
 			for(int j=0; j<10000; j++)
 			{
 				//if (name == "Anton") 
-				yield();
+				//yield();
 			}
 		}
 		
@@ -96,9 +96,9 @@ int main()
 	Hello berta("Berta", out, &stack0[1024]);
 	Hello caesar("Caesar", out, &stack1[1024]);
 
-	anton.setQuantum(2);
-	berta.setQuantum(2);
-	caesar.setQuantum(2);
+	anton.setQuantum(1);
+	berta.setQuantum(1);
+	caesar.setQuantum(1);
 
 	cpu.enableInterrupts();
 	anton.body();

@@ -64,7 +64,7 @@
 	 */
 	void ActivityScheduler::activate(Schedulable* to)
     {     
-        IntLock lock;
+        //IntLock lock;
 
         Activity* run = (Activity*) active();
         if (!(run->isBlocked() || run->isZombie()))
