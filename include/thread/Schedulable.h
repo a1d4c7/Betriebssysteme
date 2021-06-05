@@ -19,8 +19,7 @@ class Schedulable: public Chain {
 public:
 	explicit Schedulable(int slice = 1)
 	{ 
-		quantum(slice);
-		setTicks(0); 
+		quantum(slice); 
 	}
 
 	//setzt das zeit maximum
@@ -35,30 +34,9 @@ public:
 		return slice;
 	}
 
-	//adds one to tick count
-	void tick()
-	{
-		ticks += 1;
-	}
-
-	//sets tick count
-	void setTicks(int i)
-	{
-		this->ticks = i;
-	}
-
-	//returns current tick count
-	int getTicks()
-	{
-		return ticks;
-	}
-
 private:
 	//maximal moegliche zeit
 	int slice;
-
-	//aktuelle zeit
-	int ticks;
 };
 
 #endif

@@ -1,6 +1,7 @@
 #include "thread/ActivityScheduler.h"
 #include "thread/Activity.h"
 #include "interrupts/IntLock.h"
+#include "device/Clock.h"
 
 #include "lib/Debugger.h"
 
@@ -82,10 +83,28 @@
             while (empty)
             {
                 to = (Schedulable*) readylist.dequeue();
-                if (to != 0) empty = false;
+                if (to != 0) 
+                {
+                    empty = false;
+                }
+                else
+                {
+                    //interrupts gesperrt durch Intlock in reschedule   
+                    CPU::enableInterrupts();
+
+                    //kurz warten um interrupt zeit zu ermoeglichen
+                    for (int i = 0; i < 5; i++);
+                    
+                    //interrupts wieder sperren da to auf readylist angewiesen ist
+                    CPU::disableInterrupts();
+                }
             }
         }
-             
+
+        //falls activate durch checkslice -> reschedule aufgerufen dann doppelt zurueckgesetzt
+        //aber wichtig wenn geyielded wird
+        clock.resetTicks();
+
         ((Activity*) to)->changeTo(Activity::RUNNING);
         dispatch((Activity*) to);
     
@@ -102,11 +121,24 @@
         
         Activity* running = (Activity*) active();
 
-        running->tick();
-        
-        if (running->getTicks() >= running->quantum())
+        //running kann null sein da wir in activate den while loop interrupts zulassen
+        //dadurch kann checkslice auf einen null pointer aufgerufen werden
+        //sollte aber doch nicht der fall sein, da running nie auf einen null prozess gesetzt werden kann
+        //der alte prozess steht immer noch in running obwohl er ja garnicht mehr wirklich running ist
+        if (running != 0) 
         {
-            running->setTicks(0);
+            if (clock.ticks() >= running->quantum())
+            {
+                clock.resetTicks();
+                reschedule();
+            }
+        }
+        else 
+        {
+            clock.resetTicks();
             reschedule();
         }
+        
+
+        
     } 

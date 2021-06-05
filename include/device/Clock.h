@@ -69,6 +69,11 @@ public:
 	{
 		return tickCount;
 	}
+
+	void resetTicks()
+	{
+		tickCount = 0;
+	}
     
 private:
 	int tickCount;
