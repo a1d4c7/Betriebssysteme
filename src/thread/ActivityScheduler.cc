@@ -50,7 +50,7 @@
 	 */
 	void ActivityScheduler::exit()
     {
-        IntLock lock;
+        //IntLock lock; //keine Statusaenderung, keine gemeinsame Daten
 
         Activity* running = (Activity*) active();
 
@@ -74,7 +74,7 @@
             scheduler.schedule(run);
         }  
 
-        //wenn to = 0 sind dann ist readyliste leer
+        //wenn to = 0 ist dann ist readyliste leer
         //falls readyliste leer ist, auf naechste activity warten
         if (to == 0)
         {
@@ -82,21 +82,19 @@
 
             while (empty)
             {
+                {
+                    IntLock lock;
+                    CPU::enableInterrupts();
+                    CPU::halt();
+                }
+                
+                //interrupts wieder sperren da sie vorher ja aus waren durch reschedule
+                //und um dequeue zu schuetzen
                 to = (Schedulable*) readylist.dequeue();
+
                 if (to != 0) 
                 {
-                    empty = false;
-                }
-                else
-                {
-                    //interrupts gesperrt durch Intlock in reschedule   
-                    CPU::enableInterrupts();
-
-                    //kurz warten um interrupt zeit zu ermoeglichen
-                    for (int i = 0; i < 5; i++);
-                    
-                    //interrupts wieder sperren da to auf readylist angewiesen ist
-                    CPU::disableInterrupts();
+                    empty = false;    
                 }
             }
         }

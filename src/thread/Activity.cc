@@ -25,7 +25,6 @@
 	 */
 	Activity::Activity() : Coroutine(), joined(0), s(BLOCKED)
     {
-        //TODO #
 		this->s = RUNNING;
 	    scheduler.start(this);
     }
@@ -48,7 +47,7 @@
 	 */
 	void Activity::sleep()
     {
-		//IntLock lock;
+		IntLock lock; //Statusaenderung sichern um inkonsistenz zu vermeiden
 
 		//falls die activity nicht laeuft muss nur der status geaendert werden
 		if (!this->isRunning()) 
@@ -68,7 +67,7 @@
 	 */
 	void Activity::wakeup()
     {
-		//IntLock lock;
+		IntLock lock; //Statusaenderung sichern um inkonsistenz zu vermeiden
 
 		//um zu verhindern das auf nicht wartenden activities wakeup aufgerufen wird
 		if (this->isBlocked())
@@ -82,7 +81,7 @@
 	 */
 	void Activity::yield()
     {
-		//IntLock lock;
+		IntLock lock; //Statusaenderung sichern um inkonsistenz zu vermeiden
 
 		this->changeTo(READY);
 		

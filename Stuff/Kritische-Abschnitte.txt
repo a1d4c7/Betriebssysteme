@@ -2,7 +2,7 @@ ActivityScheduler:
     suspend();      _/ + active*     
     kill();         _/ + active*
     exit();         _/ + active*
-    activate();     _/ + sollte locked sein durch reschedule
+    activate();     _/ - sollte locked sein durch reschedule
     checkSlice();   _/ + wichtig
 
 Scheduler:
@@ -11,13 +11,10 @@ Scheduler:
     reschedule();   _/ + sehr wichtig | readylist
 
 Clock:
-    handle();       _/ + kein kritischer Abschnitt 
+     
 
-Activity:           muss eventuell auch nicht
-    ~Activity();    eventuell???
-    sleep();        _/ -    da wir suspendieren ändern readylist mit remove()
-    wakeup();       _/ -    ändern readylist mit schedule()
-    yield();        _/ -    reschedule()
-    exit();         _/ -    wakeup()
-    join();         _/ -    sleep() 
+Activity:          
+    sleep();        _/ +    Statusaenderungda 
+    wakeup();       _/ +    Statusaenderung 
+    yield();        _/ +    Statusaenderung 
     

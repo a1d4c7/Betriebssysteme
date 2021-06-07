@@ -51,8 +51,8 @@ public:
             
 			for(int j=0; j<10000; j++)
 			{
-				//if (name == "Anton") 
-				//yield();
+				//if (name == "Anton" && j % 10 == 0) yield();
+				
 			}
 		}
 		
