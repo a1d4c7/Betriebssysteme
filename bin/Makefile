@@ -43,6 +43,8 @@ SYSTEM_CC = \
 	device/CgaChannel.cc \
 	device/CgaScreen.cc \
 	device/Clock.cc \
+	device/CodeTable.cc \
+	device/Keyboard.cc \
 	device/PIC.cc \
 	device/PIT.cc \
 	interrupts/Gate.cc \
@@ -56,6 +58,9 @@ SYSTEM_CC = \
 	thread/ActivityScheduler.cc \
 	thread/Coroutine.cc \
 	thread/Scheduler.cc \
+	tools/Calc.cc \
+	tools/Interp.cc \
+	tools/Scanner.cc \
 	mainPre.cc \
 	
 	
