@@ -89,7 +89,5 @@ int main()
 	Hello c("C", out, &stack1[1024], 15);
 
 	a.body();
-
-	//debuggi.line("MAIN ENDE");
 }
 
