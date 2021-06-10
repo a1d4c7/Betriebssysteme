@@ -11,7 +11,7 @@
 	 * der abgeleiteten Klasse abgearbeitet ist. Die Aktivierung
 	 * erfolgt von der abgeleiteten Klasse mittels "wakeup".
 	*/
-	Activity::Activity(void* tos): Coroutine(tos), joined(0), s(BLOCKED)
+	Activity::Activity(void* tos): Coroutine(tos), s(BLOCKED), joined(0)
     {
 		
     }
@@ -23,7 +23,7 @@
 	 * Coroutine abstrakt ist. Bei Bedarf muss "body" direkt
 	 * aufgerufen werden.
 	 */
-	Activity::Activity() : Coroutine(), joined(0), s(BLOCKED)
+	Activity::Activity() : Coroutine(), s(BLOCKED), joined(0)
     {
 		this->s = RUNNING;
 	    scheduler.start(this);

@@ -71,16 +71,24 @@
         if (!(run->isBlocked() || run->isZombie()))
         {
             if (run->isRunning()) run->changeTo(Activity::READY);
-            scheduler.schedule(run);
+            
+            if (to == 0)
+            {
+                to = run;
+            }
+            else 
+            {
+                scheduler.schedule(run);
+            }
         }  
 
         //wenn to = 0 ist dann ist readyliste leer
         //falls readyliste leer ist, auf naechste activity warten
         if (to == 0)
         {
-            bool empty = true;
+            isEmpty = true;
 
-            while (empty)
+            while (isEmpty)
             {
                 {
                     IntLock lock;
@@ -94,7 +102,7 @@
 
                 if (to != 0) 
                 {
-                    empty = false;    
+                    isEmpty = false;    
                 }
             }
         }
@@ -117,6 +125,8 @@
     {
         IntLock lock;
         
+        if (isEmpty) return;
+
         Activity* running = (Activity*) active();
 
         //running kann null sein da wir in activate den while loop interrupts zulassen

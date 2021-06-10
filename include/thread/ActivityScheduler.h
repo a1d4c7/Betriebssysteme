@@ -63,7 +63,7 @@ protected:
 	virtual void activate(Schedulable* to);
 
 private:
-
+	bool isEmpty = false;
 };
 
 extern ActivityScheduler scheduler;
