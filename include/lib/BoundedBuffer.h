@@ -21,11 +21,20 @@ public:
 
 	BoundedBuffer()
 	{
+		in = startArray;
+		out = startArray;
+		
 		isEmpty = true;
 		isFull = false;
 
 		//TODO ?
 		//array initialisieren mit leeren T's
+		/*
+		for (unsigned int i = 0; i < size; i++)
+		{
+			buffer[i] = T();
+		}
+		*/
 	}
 
 	/** Diese Methode wird vom Interrupthandler aufgerufen, um
@@ -35,6 +44,7 @@ public:
 	 */
 	void add(T& elem)
 	{
+		
 		//TODO
 		//intlock ueberdenken da in aufgabe steht add darf nicht blockieren
 		//brauchen aber das intlock in der if (!isFull) weil in moveIn() pointer veraendert werden
@@ -47,15 +57,15 @@ public:
 			//in verschieben
 			moveIn();
 		}
-
+		
 		//wecken der wartenden prozesse
-		bool toWake = true
+		bool toWake = true;
 		while (toWake)
 		{
 			Activity* sleeping = (Activity*) waitList.dequeue();
 			if (sleeping != 0)
 			{
-				sleeping.wakeup();
+				sleeping->wakeup();
 			}
 			else 
 			{
@@ -81,7 +91,7 @@ public:
 		}
 
 		T elem;
-		elem = *out; //lesen das elem was an out steht
+		elem = (T) *out; //lesen das elem was an out steht
 
 		//out verschieben
 		moveOut();
@@ -91,8 +101,8 @@ public:
 
 private:
 	T buffer[size];
-	volatile T* in;  //naechstes zu schreibender Platz
-	volatile T* out; //naechstes zu lesendes element
+	/*volatile*/ T* in;  //naechstes zu schreibender Platz
+	/*volatile*/ T* out; //naechstes zu lesendes element
 
 	volatile bool isEmpty;
 	bool isFull;
@@ -119,7 +129,7 @@ private:
 	void moveIn() 
 	{
 		//falls der puffer leer war ist er es jetzt nicht mehr
-		if (isEqual) isEmpty = false;
+		if (isEqual()) isEmpty = false;
 
 		//in verschieben
 		if (in == endArray) //falls in auf die letzte stelle im array zeigt
@@ -132,7 +142,7 @@ private:
 		}
 
 		//pruefen ob der puffer jetzt voll ist
-		if (isEqual) isFull = true;
+		if (isEqual()) isFull = true;
 	}
 
 	//verschiebt den out pointer beim lesen aus dem puffer
@@ -140,7 +150,7 @@ private:
 	void moveOut()
 	{
 		//falls der puffer voll war ist er es jetzt nicht mehr
-		if (isEqual) isFull = false;
+		if (isEqual()) isFull = false;
 
 		//out verschieben
 		if (out == endArray) //falls out auf die letzte stelle im array zeigt
@@ -153,7 +163,7 @@ private:
 		}
 
 		//pruefen ob der puffer jetzt leer ist
-		if (isEqual) isEmpty = true; 
+		if (isEqual()) isEmpty = true; 
 	}
 };
 
