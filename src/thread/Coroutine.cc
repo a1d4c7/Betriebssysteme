@@ -76,42 +76,43 @@
             __asm("movl %%esp, %%eax;" : "=a" (tos));
         }
         
+        char* int_tos = (char*) tos;
         
         
-        //arg tos - 0
-        int* el = (int*) (tos - 4 * i);
+        //arg int_tos - 0
+        int* el = (int*) (int_tos - 4 * i);
         *el = (int) frame.arg;     
         i += 1;
 
-        //nirwana tos - 4
-        el = (int*) (tos - 4 * i);
+        //nirwana int_tos - 4
+        el = (int*) (int_tos - 4 * i);
         *el = (int) frame.nirwana;
         i += 1;
 
-        //startup tos - 8
-        el = (int*) (tos - 4 * i);
+        //startup int_tos - 8
+        el = (int*) (int_tos - 4 * i);
         *el = (int) frame.coroutine;
         i += 1;
 
-        //ebp tos - 12
-        el = (int*) (tos - 4 * i);
+        //ebp int_tos - 12
+        el = (int*) (int_tos - 4 * i);
         *el = (int) frame.bp;
         i += 1;
 
-        //ebx tos - 16
-        el = (int*) (tos - 4 * i);
+        //ebx int_tos - 16
+        el = (int*) (int_tos - 4 * i);
         *el = (int) frame.ebx;
         i += 1;
 
-        //esi tos - 20
-        el = (int*) (tos - 4 * i);
+        //esi int_tos - 20
+        el = (int*) (int_tos - 4 * i);
         *el = (int) frame.esi;
         i += 1;
 
-        //edi tos - 24
-        el = (int*) (tos - 4 * i);
+        //edi int_tos - 24
+        el = (int*) (int_tos - 4 * i);
         *el = (int) frame.edi;
     
         //"retten" des stackpointers
-        this->sp = (tos - 4 * i);
+        this->sp = (int_tos - 4 * i);
     }

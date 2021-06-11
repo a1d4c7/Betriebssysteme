@@ -85,7 +85,7 @@
 		}
 		else
 		{
-			char* str = "Falsche Basis";
+			char const *str = "Falsche Basis";
 			int size = strSizeP(str);
 			channel.write(str, size);
 		}
