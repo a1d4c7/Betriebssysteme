@@ -62,8 +62,6 @@ public:
 				toWake = false;
 			}
 		}
-		
-
 	}
 
 	/** Diese Methode wird von Prozessen aufgerufen, um Daten aus dem
@@ -89,8 +87,6 @@ public:
 		moveOut();
 
 		return elem;
-		
-		
 	}
 
 private:
