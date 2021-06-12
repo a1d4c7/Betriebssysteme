@@ -27,22 +27,80 @@ void Calculator::init()
 
 void Calculator::body()
 {
+    char c;
+    Key key;
+    do{
+        key = keyboard.read();
+        c = key.getValue();
+
+        //eingegebenes zeichen ist ein ascii-char
+        if (key.isAscii()) 
+        {
+            insert(c);
+        }
+        else //ist kein ascii-char
+        {
+            //TODO
+            //left, right behandlung, TODO delete
+            if (key.getValue() == CodeTable::LEFT) moveLeft();
+            if (key.getValue() == CodeTable::RIGHT) moveRight();
+            
+        }
+    }
+    while(c!='x');
 }
 
 void Calculator::insert(char c)
 {
+    //falls enter gedrueckt wurde
+    if (c == '\n') 
+    {
+        enter(); 
+        return;
+    }
+    
+    //TODO was wenn nicht enter (zeichen, ungueltiges zeichen,...)
 }
 
 void Calculator::enter()
 {
+    //legenede:
+    //zahl: 0-9
+    //rechenzeichen: +-*/
+    //trennungszeichen: ()
+    //expr: 
+    //zahl^n, rechenzeichen, zahl^n
+    //zahl^n, rechenzeichen, trennungszeichen, expr, trennungszeichen
+    //expr, rechenzeichen, expr
+
+    //                expr
+    //           expr  rz         expr
+    //       zahl rz  zahl   |  (zahl rz expr)
+    //....   
+
+    //https://en.wikipedia.org/wiki/Shunting-yard_algorithm
 }
 
 void Calculator::moveLeft()
 {
+    int col, row;
+    cga.getCursor(col, row);
+
+    if (col > 0)
+    {
+        cga.setCursor(col - 1, row);
+    }    
 }
 
 void Calculator::moveRight()
 {
+    int col, row;
+    cga.getCursor(col, row);
+
+    if (col < EXPR_SIZE_MAX - 1) //entweder moven cursor nur in expression reichweite oder ganze zeile
+    {
+        cga.setCursor(col + 1, row);
+    } 
 }
 
 void Calculator::renderBuffer()
