@@ -38,6 +38,7 @@ public:
 			key = keyboard.read();
 				c = key.getValue();
 				cout.print(c);
+			//keyboard.read();
 		}while(c!='x');
 	}
 

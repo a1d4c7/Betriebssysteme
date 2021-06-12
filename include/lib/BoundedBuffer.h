@@ -91,7 +91,7 @@ public:
 		}
 
 		T elem;
-		elem = (T) *out; //lesen das elem was an out steht
+		elem = *out; //lesen das elem was an out steht
 
 		//out verschieben
 		moveOut();
@@ -105,7 +105,7 @@ private:
 	/*volatile*/ T* out; //naechstes zu lesendes element
 
 	volatile bool isEmpty;
-	bool isFull;
+	volatile bool isFull;
 
 	T* startArray = buffer;
 	T* endArray   = buffer + size - 1;
