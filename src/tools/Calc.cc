@@ -47,9 +47,25 @@ void Calculator::body()
             
         }
     }
-    while(c!='x');
+    while(c!='x'); //TODO ende bei eingabe von ESC
 }
 
+
+/**
+ * Behandelt die Eingabe eines ASCII-Zeichens.
+ *
+ * Falls möglich, wird das Zeichen an der aktuellen Position eingefügt.
+ *
+ * Hierzu müssen ggf. bereits eingegebene Zeichen verschoben werden
+ * Überlegt euch, wie ihr verfahrt wenn, die maximale Ausdruckslänge
+ * durch die Eingabe des neuen Zeichens überschritten wird.
+ *
+ * Beachtet außerdem, dass jedes gültige Zeichen gepuffert werden muss,
+ * damit der Interpreter den insgesamten Ausdruck auswerten kann.
+ *
+ * @param c
+ *      Ein ASCII-Zeichen
+ */
 void Calculator::insert(char c)
 {
     //falls enter gedrueckt wurde
@@ -62,6 +78,20 @@ void Calculator::insert(char c)
     //TODO was wenn nicht enter (zeichen, ungueltiges zeichen,...)
 }
 
+
+/**
+ * Behandelt das Betätigen der Eingabe-Taste.
+ *
+ * Das Betätigen der Eingabe-Taste soll zur Folge haben,
+ * der aktuell gepufferte Ausdruck ausgewertet wird.
+ *
+ * Ist die Auswertung erfolgreich, soll das Ergebnis ausgegeben werden.
+ * Andernfalls ist eine dem Rückgabe-Status angemessene Fehlermeldung
+ * auszugeben. Dies erfolgt in der nächsten Zeile.
+ *
+ * Für die Eingabe des nächsten Ausdrucks sollte der Cursor
+ * entsprechend positioniert werden.
+ */
 void Calculator::enter()
 {
     //legenede:
