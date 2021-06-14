@@ -48,7 +48,7 @@ void Calculator::body()
             
         }
     }
-    while(c!='x'); //TODO ende bei eingabe von ESC
+    while(c!='x'); //TODO ende bei eingabe von ESC (ascii 27)
 }
 
 
@@ -72,7 +72,8 @@ void Calculator::insert(char c)
     //falls enter gedrueckt wurde
     if (c == '\n') 
     {
-        enter(); 
+        enter();
+        clearBuffer(); 
         return;
     }
     
@@ -102,6 +103,7 @@ void Calculator::enter()
     if (status != 0)
     {
         printErrorMsg(status);
+        out.println();
         return;
     }
 
