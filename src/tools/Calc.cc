@@ -46,9 +46,20 @@ void Calculator::body()
             if (key.getValue() == CodeTable::LEFT) moveLeft();
             if (key.getValue() == CodeTable::RIGHT) moveRight();
             
+            if(key.getValue() == CodeTable::DEL)
+            {
+                int col, row;
+                cga.getCursor(col, row);
+
+                for (int i = col; i < EXPR_SIZE_MAX + 1; i++)
+                {
+                    buffer[i] = buffer[i + 1]; //Zeichen rechts vom Cursor werden nach links geshiftet
+                }
+                
+            }
         }
     }
-    while(c!='x'); //TODO ende bei eingabe von ESC
+    while(c!=(char) 27); //TODO ende bei eingabe von ESC
 }
 
 
@@ -75,8 +86,18 @@ void Calculator::insert(char c)
         enter(); 
         return;
     }
+
     
     //TODO was wenn nicht enter (zeichen, ungueltiges zeichen,...)
+    //ungültiges Zeichen wahrscheinlich vernachlässigbar, weil bei enter überprüft wird
+    int col, row;
+    cga.getCursor(col, row);
+    for (int i = EXPR_SIZE_MAX - 1; i > col; i--)
+    {
+        buffer[i] = buffer[i - 1]; //Zeichen rechts vom Cursor werden nach rechts geshiftet
+                                   //bei Erreichen maximaler Länge wird letztes Zeichen gelöscht
+    }
+    buffer[col] = c; //Übergebenes Zeichen wird an Corsorposition eingefügt
 }
 
 
