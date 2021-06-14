@@ -3,6 +3,7 @@
 #include "device/CgaChannel.h" // ermöglicht Kontrolle über Cursor
 #include "device/Keyboard.h" // ermöglicht Eingaben durch Tastatur
 #include "io/PrintStream.h" // ermöglicht Linefeeds und Ausgabe von Zahlen
+#include "tools/Interp.h"
 
 extern CgaChannel cga;
 extern PrintStream out;
@@ -94,21 +95,18 @@ void Calculator::insert(char c)
  */
 void Calculator::enter()
 {
-    //legenede:
-    //zahl: 0-9
-    //rechenzeichen: +-*/
-    //trennungszeichen: ()
-    //expr: 
-    //zahl^n, rechenzeichen, zahl^n
-    //zahl^n, rechenzeichen, trennungszeichen, expr, trennungszeichen
-    //expr, rechenzeichen, expr
+    Interpreter interp;
+    int result = 0;
+    unsigned status = interp.eval(buffer, result);
 
-    //                expr
-    //           expr  rz         expr
-    //       zahl rz  zahl   |  (zahl rz expr)
-    //....   
+    if (status != 0)
+    {
+        printErrorMsg(status);
+        return;
+    }
 
-    //https://en.wikipedia.org/wiki/Shunting-yard_algorithm
+    //TODO 
+    //ergebnis ausgabe,...
 }
 
 void Calculator::moveLeft()
