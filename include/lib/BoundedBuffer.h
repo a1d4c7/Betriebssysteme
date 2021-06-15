@@ -26,15 +26,6 @@ public:
 		
 		isEmpty = true;
 		isFull = false;
-
-		//TODO ?
-		//array initialisieren mit leeren T's
-		/*
-		for (unsigned int i = 0; i < size; i++)
-		{
-			buffer[i] = T();
-		}
-		*/
 	}
 
 	/** Diese Methode wird vom Interrupthandler aufgerufen, um
@@ -45,10 +36,6 @@ public:
 	void add(T& elem)
 	{
 		
-		//TODO
-		//intlock ueberdenken da in aufgabe steht add darf nicht blockieren
-		//brauchen aber das intlock in der if (!isFull) weil in moveIn() pointer veraendert werden
-		//ausserdem wird in der while(toWake) mit dequeue auf eine queue zugegegriffen
 		IntLock lock; //aendern von pointern
 
 		if (!isFull)
@@ -101,8 +88,8 @@ public:
 
 private:
 	T buffer[size];
-	/*volatile*/ T* in;  //naechstes zu schreibender Platz
-	/*volatile*/ T* out; //naechstes zu lesendes element
+	T* in;  //naechstes zu schreibender Platz
+	T* out; //naechstes zu lesendes element
 
 	volatile bool isEmpty;
 	volatile bool isFull;

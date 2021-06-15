@@ -41,8 +41,6 @@ void Calculator::body()
         }
         else //ist kein ascii-char
         {
-            //TODO
-            //left, right behandlung, TODO delete
             if (key.getValue() == CodeTable::LEFT) moveLeft();
             if (key.getValue() == CodeTable::RIGHT) moveRight();
             
@@ -61,7 +59,7 @@ void Calculator::body()
             }
         }
     }
-    while(c!=(char) 27); //TODO ende bei eingabe von ESC
+    while(c!=(char) 27); //TODO-Test ende bei eingabe von ESC
 }
 
 
@@ -113,6 +111,7 @@ void Calculator::insert(char c)
     
     //TODO was wenn nicht enter (zeichen, ungueltiges zeichen,...)
     //ungültiges Zeichen wahrscheinlich vernachlässigbar, weil bei enter überprüft wird
+    //gültige Zeichen: 0-9, a-f, (b), x, +-*/% 
     int col, row;
     cga.getCursor(col, row);
     if (col < EXPR_SIZE_MAX) 
@@ -158,15 +157,15 @@ void Calculator::enter()
     if (status != 0)
     {
         printErrorMsg(status);
-        out.println();
+        out.println(); //TODO-Test Scrollen
         return;
     }
 
-    //TODO 
-    //ergebnis ausgabe,...
+     
+    //ergebnis ausgabe
     out.print("= ");
     out.print(result);
-    out.println();
+    out.println(); //TODO-Test Scrollen
 }
 
 void Calculator::moveLeft()
