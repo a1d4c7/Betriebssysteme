@@ -38,7 +38,6 @@ void Calculator::body()
         if (key.isAscii()) 
         {
             insert(c);
-            //ab
         }
         else //ist kein ascii-char
         {

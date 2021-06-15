@@ -195,6 +195,10 @@ int Interpreter::evalNum()
 
 int Interpreter::evalDump()
 {
+    // Whitespace überspringen
+    consumeWS();
     
-    return 0;
+    int *adresse = (int*) evalNum();
+
+    return *adresse;
 }
