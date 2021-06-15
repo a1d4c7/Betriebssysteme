@@ -38,6 +38,7 @@ void Calculator::body()
         if (key.isAscii()) 
         {
             insert(c);
+            //ab
         }
         else //ist kein ascii-char
         {
@@ -51,10 +52,12 @@ void Calculator::body()
                 int col, row;
                 cga.getCursor(col, row);
 
-                for (int i = col; i < EXPR_SIZE_MAX + 1; i++)
+                for (int i = col; i < EXPR_SIZE_MAX; i++)
                 {
                     buffer[i] = buffer[i + 1]; //Zeichen rechts vom Cursor werden nach links geshiftet
                 }
+
+                renderBuffer();
                 
             }
         }
@@ -88,17 +91,47 @@ void Calculator::insert(char c)
         return;
     }
 
+    //falls backspace gedrueckt wurde
+    if (c == (char) 8)
+    {
+        int col, row;
+        cga.getCursor(col, row);
+        
+        if (col == 0) return;
+
+        for (int i = col - 1; i < EXPR_SIZE_MAX; i++)
+        {
+            buffer[i] = buffer[i + 1]; //Zeichen rechts vom Cursor werden nach links geshiftet
+        }
+
+        cga.setCursor(col - 1, row);
+
+        renderBuffer();
+        return;
+    }
+
+    
     
     //TODO was wenn nicht enter (zeichen, ungueltiges zeichen,...)
     //ungültiges Zeichen wahrscheinlich vernachlässigbar, weil bei enter überprüft wird
     int col, row;
     cga.getCursor(col, row);
-    for (int i = EXPR_SIZE_MAX - 1; i > col; i--)
+    if (col < EXPR_SIZE_MAX) 
     {
-        buffer[i] = buffer[i - 1]; //Zeichen rechts vom Cursor werden nach rechts geshiftet
-                                   //bei Erreichen maximaler Länge wird letztes Zeichen gelöscht
+        //Zeichen rechts vom Cursor werden nach rechts geshiftet
+        //bei Erreichen maximaler Länge wird letztes Zeichen gelöscht
+        for (int i = EXPR_SIZE_MAX - 1; i > col; i--)
+        {
+            buffer[i] = buffer[i - 1];                         
+        }
+
+        buffer[col] = c; //Übergebenes Zeichen wird an Corsorposition eingefügt
+
+        
+        if (col < EXPR_SIZE_MAX - 1) cga.setCursor(col + 1, row);
     }
-    buffer[col] = c; //Übergebenes Zeichen wird an Corsorposition eingefügt
+    
+    renderBuffer();
 }
 
 
@@ -117,6 +150,8 @@ void Calculator::insert(char c)
  */
 void Calculator::enter()
 {
+    out.println();
+
     Interpreter interp;
     int result = 0;
     unsigned status = interp.eval(buffer, result);
@@ -130,6 +165,9 @@ void Calculator::enter()
 
     //TODO 
     //ergebnis ausgabe,...
+    out.print("= ");
+    out.print(result);
+    out.println();
 }
 
 void Calculator::moveLeft()

@@ -127,7 +127,8 @@ int Interpreter::evalFactor()
         return evalNum();
     }
     else if (LA == '\0') { // Ende des Puffers
-        status = UNEXP_EOT;
+        status = UNEXP_EOT; //HERE wird gesetzt und dann nicht mehr veraendert
+        //status = BAD_BUFFER;
     }
     else {
         status = UNEXP_SYMBOL;
@@ -194,5 +195,6 @@ int Interpreter::evalNum()
 
 int Interpreter::evalDump()
 {
+    
     return 0;
 }

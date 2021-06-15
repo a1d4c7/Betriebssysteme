@@ -35,11 +35,31 @@ bool Scanner::lookahead(char* dest)
 
 bool Scanner::isDigit(char ch)
 {
+    switch (ch)
+    {
+        case '0':
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+            return true;
+            break;
+
+        default:
+            break;
+    }
+    
    return false;
 }
 
 bool Scanner::isWhitespace(char ch)
 {
+   if (ch == ' ') return true;
    return false;
 }
 
