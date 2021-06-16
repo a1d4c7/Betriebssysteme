@@ -59,7 +59,7 @@ void Calculator::body()
             }
         }
     }
-    while(c!=(char) 27); //TODO-Test ende bei eingabe von ESC
+    while(c!=(char) 27); //ende bei eingabe von ESC
 }
 
 
@@ -106,12 +106,14 @@ void Calculator::insert(char c)
         renderBuffer();
         return;
     }
-
     
     
-    //TODO was wenn nicht enter (zeichen, ungueltiges zeichen,...)
+    //wenn nicht enter (zeichen, ungueltiges zeichen,...)
     //ungültiges Zeichen wahrscheinlich vernachlässigbar, weil bei enter überprüft wird
-    //gültige Zeichen: 0-9, a-f, (b), x, +-*/% 
+    //gültige Zeichen: 0-9, a-f, A-F, (b), x, +-*/% 
+    if (!isValid(c)) return;
+
+
     int col, row;
     cga.getCursor(col, row);
     if (col < EXPR_SIZE_MAX) 
@@ -157,7 +159,7 @@ void Calculator::enter()
     if (status != 0)
     {
         printErrorMsg(status);
-        out.println(); //TODO-Test Scrollen
+        out.println(); 
         return;
     }
 
@@ -165,7 +167,7 @@ void Calculator::enter()
     //ergebnis ausgabe
     out.print("= ");
     out.print(result);
-    out.println(); //TODO-Test Scrollen
+    out.println();
 }
 
 void Calculator::moveLeft()
@@ -233,4 +235,47 @@ void Calculator::printErrorMsg(unsigned code)
     default:
         break;
     }
+}
+
+
+/** Prüft ob ein Zeichen gültig ist */
+//gültige Zeichen: 0-9, a-f, A-F, (b), x, +-*/%
+bool Calculator::isValid(char c)
+{
+    //'0'-'9' = 48-57
+    if (c >= '0' && c <= '9')
+    {
+        return true;
+    }
+
+    //'A'-'F' = 65-70
+    if (c >= 'A' && c <= 'F')
+    {
+        return true;
+    }
+
+    //'a'-'f' = 97-102
+    if (c >= 'a' && c <= 'f')
+    {
+        return true;
+    }
+
+    //"Sonderzeichen"
+    switch (c)
+    {
+        case ' ':
+        case 'x':
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '%':
+            return true;
+        
+        default:
+            break;
+    }
+
+
+    return false;
 }

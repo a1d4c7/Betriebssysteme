@@ -38,7 +38,7 @@ int Interpreter::evalSumTail(int lhs)
     switch (lookahead()) {
         case '+':
             consume();
-            return lhs + evalSumTail(evalProd());
+            return lhs + evalSumTail(evalProd()); //HEREx2
 
         case '-':
             consume();
@@ -127,7 +127,7 @@ int Interpreter::evalFactor()
         return evalNum();
     }
     else if (LA == '\0') { // Ende des Puffers
-        status = UNEXP_EOT; //HERE wird gesetzt und dann nicht mehr veraendert
+        status = UNEXP_EOT; //HEREx1 wird gesetzt und dann nicht mehr veraendert
         //status = BAD_BUFFER;
     }
     else {

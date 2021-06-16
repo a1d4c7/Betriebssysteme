@@ -143,6 +143,10 @@ private:
 
     /** Eingabepuffer. Speichert den Inhalt der aktuellen Zeile sowie ein Null-Byte. */
     char buffer[EXPR_SIZE_MAX + 1];
+
+
+    /** Prüft ob ein Zeichen gültig ist */
+    bool isValid(char c);
 };
 
 #endif
