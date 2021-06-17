@@ -35,9 +35,6 @@ public:
 	 */
 	void add(T& elem)
 	{
-		
-		IntLock lock; //aendern von pointern
-
 		if (!isFull)
 		{
 			*in = elem; //schreiben an die stelle auf die in zeigt das element
