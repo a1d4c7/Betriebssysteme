@@ -70,6 +70,8 @@ int CgaChannel::write(const char *data, int size)
         }
         
     }
+
+    return 0;
     
 }
 

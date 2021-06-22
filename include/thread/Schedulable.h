@@ -19,8 +19,26 @@
 
 class Schedulable: public Chain {
 public:
+	explicit Schedulable(int slice = 1)
+	{ 
+		quantum(slice); 
+	}
+
+	//setzt das zeit maximum
+	void quantum(int slice)
+	{ 
+		this->slice = slice;
+	}
+
+	//returned das zeit maximum
+	int quantum()
+	{ 
+		return slice;
+	}
 
 private:
+	//maximal moegliche zeit
+	int slice;
 };
 
 #endif
