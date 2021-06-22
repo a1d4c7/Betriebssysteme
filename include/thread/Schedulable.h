@@ -10,8 +10,6 @@
  *	Hier wuerden typischerweise Informationen
  *	wie prozesspezifische Laufzeitstatistiken,
  *	Prioritaeten etc. verwaltet werden.
- *	Gegenwaertig brauchen wir diese Informationen
- *	aber noch nicht und die Klasse ist deshalb vorlaeufig leer.
  *
  */
 
@@ -19,8 +17,26 @@
 
 class Schedulable: public Chain {
 public:
+	explicit Schedulable(int slice = 1)
+	{ 
+		quantum(slice); 
+	}
+
+	//setzt das zeit maximum
+	void quantum(int slice)
+	{ 
+		this->slice = slice;
+	}
+
+	//returned das zeit maximum
+	int quantum()
+	{ 
+		return slice;
+	}
 
 private:
+	//maximal moegliche zeit
+	int slice;
 };
 
 #endif

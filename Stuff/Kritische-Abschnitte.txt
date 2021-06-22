@@ -1,0 +1,20 @@
+ActivityScheduler:
+    suspend();      _/ + active*     
+    kill();         _/ + active*
+    exit();         _/ + active*
+    activate();     _/ - sollte locked sein durch reschedule
+    checkSlice();   _/ + wichtig
+
+Scheduler:
+    schedule();     _/ + sehr wichtig | readylist
+    remove();       _/ + sehr wichtig | readylist
+    reschedule();   _/ + sehr wichtig | readylist
+
+Clock:
+     
+
+Activity:          
+    sleep();        _/ +    Statusaenderungda 
+    wakeup();       _/ +    Statusaenderung 
+    yield();        _/ +    Statusaenderung 
+    
