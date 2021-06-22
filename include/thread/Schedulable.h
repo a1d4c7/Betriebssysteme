@@ -10,8 +10,6 @@
  *	Hier wuerden typischerweise Informationen
  *	wie prozesspezifische Laufzeitstatistiken,
  *	Prioritaeten etc. verwaltet werden.
- *	Gegenwaertig brauchen wir diese Informationen
- *	aber noch nicht und die Klasse ist deshalb vorlaeufig leer.
  *
  */
 

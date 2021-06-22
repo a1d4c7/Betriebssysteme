@@ -32,6 +32,7 @@ STARTUP_S = \
 MACHINE_S = \
 	cpu/cpu.asm \
 	io/ports.asm \
+	thread/switchContext.asm \
 
 SYSTEM_C = \
 	lib/tools.c
@@ -42,6 +43,8 @@ SYSTEM_CC = \
 	device/CgaChannel.cc \
 	device/CgaScreen.cc \
 	device/Clock.cc \
+	device/CodeTable.cc \
+	device/Keyboard.cc \
 	device/PIC.cc \
 	device/PIT.cc \
 	interrupts/Gate.cc \
@@ -55,7 +58,10 @@ SYSTEM_CC = \
 	thread/ActivityScheduler.cc \
 	thread/Coroutine.cc \
 	thread/Scheduler.cc \
-	mainPre.cc \
+	tools/Calc.cc \
+	tools/Interp.cc \
+	tools/Scanner.cc \
+	mainCalc.cc \
 	
 	
 	

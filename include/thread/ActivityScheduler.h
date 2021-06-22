@@ -24,7 +24,6 @@ public:
 	 */
 	void start(Activity* act)
 	{
-		//TODO eventuell
 		init(act);
 	}
 
