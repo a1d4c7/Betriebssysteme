@@ -14,7 +14,7 @@ class PanicGate: public Gate {
 public:
 	PanicGate();
 
-	void handle();
+	bool prologue();
 };
 
 #endif

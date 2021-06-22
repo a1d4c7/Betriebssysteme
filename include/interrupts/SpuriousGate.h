@@ -13,7 +13,7 @@ class SpuriousGate: public Gate {
 public:
 	SpuriousGate();
 
-	void handle();
+	bool prologue();
 };
 
 #endif

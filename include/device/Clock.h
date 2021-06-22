@@ -15,12 +15,6 @@
 class Clock: public Gate, public PIT {
 public:
 
-	/**	Spaetere Initialisierung...
-	 *	Hier ist nur im Konstruktor dafuer zu sorgen,
-	 *	dass sich Gate korrekt initialisieren kann
-	 */
-	Clock ();
-
 	/**	Initialisierung des "Ticks" der Uhr
 	 *	Standardmaessig setzen wir das
 	 *	Uhrenintervall auf 20 Millisekunden
@@ -29,7 +23,15 @@ public:
 	 *	Zum Testen koennt Ihr bei Bedarf einen hoeheren Wert einstellen
 	 *	Weitere Hinweise zur Implementierung siehe "windup"
 	 */
-	explicit Clock (int us);
+	Clock (int us);
+
+
+	/**	Spaetere Initialisierung...
+	 *	Hier ist nur im Konstruktor dafuer zu sorgen,
+	 *	dass sich Gate korrekt initialisieren kann
+	 */
+	Clock ();
+
 
 	/**	Initialisierung des "Ticks" der Uhr
 	 * 	Die Einheit sind Mikrosekunden.
@@ -60,23 +62,17 @@ public:
 	 *	die "checkSlice" Methode des Schedulers auf,
 	 *	um diesen ggf. zum praeemptiven Rescheduling zu veranlassen.
 	 */
-	void handle();
+	bool prologue();
+	void epilogue();
 
 	/* 	Liefert die Systemzeit in Ticks zurueck
 	 *	Kann hier "inline" implementiert werden
 	 */
 	int ticks()
 	{
-		return tickCount;
 	}
 
-	void resetTicks()
-	{
-		tickCount = 0;
-	}
-    
 private:
-	int tickCount;
 };
 
 extern Clock clock;

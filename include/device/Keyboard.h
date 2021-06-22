@@ -9,7 +9,7 @@
 #include "lib/BoundedBuffer.h"
 
 /*
- * Keyboard: Der Treiber fï¿½r eine MF-II Tastatur
+ * Keyboard: Der Treiber für eine MF-II Tastatur
  *
  *
  */
@@ -52,7 +52,7 @@ private:
 	};
 
 	enum {
-		BUFFER_SIZE = 1
+		BUFFER_SIZE = 10
 	};
 
 
@@ -64,15 +64,16 @@ public:
 
 	/**	Die Interruptbehandlungsfunktion.
 	 */
-	void handle();
+	bool prologue();
+	void epilogue();
 
 	/**	Diese Methode liefert ein Zeichen aus dem Tastaturpuffer
-	 *	zurï¿½ck. Diese Methode blockiert, wenn der Puffer leer ist.
+	 *	zurück. Diese Methode blockiert, wenn der Puffer leer ist.
 	 */
 	Key read();
 
 	/**	Diese Methode ist die Implementierung von InputChannel.
-	 *	Es werden nur Ascii-zeichen zurï¿½ckgegeben.
+	 *	Es werden nur Ascii-zeichen zurückgegeben.
 	 */
 	virtual int read(char* data, int size);
 
@@ -88,8 +89,8 @@ private:
 	IOPort8 ctrlPort; // Status- (R) u. Steuerregister (W)
 
 	/**	Diese Methode bestimmt was getan werden muss,
-	 *	wenn Strg-Alt-Entf gedrï¿½ckt wurde, ein Prefixcode von
-	 *	der Tastatur gelesen wurde, oder eine Taste gedrï¿½ckt
+	 *	wenn Strg-Alt-Entf gedrückt wurde, ein Prefixcode von
+	 *	der Tastatur gelesen wurde, oder eine Taste gedrückt
 	 *	bzw. losgelassen wurde.
 	 */
 	void analyzeScanCode();
@@ -98,15 +99,15 @@ private:
 	 */
 	void keyReleased();
 
-	/**	Behandelt das Drï¿½cken einer Taste.
+	/**	Behandelt das Drücken einer Taste.
 	 */
 	void keyHit();
 
-	/**	Bestimmt das Zeichen, gemï¿½ï¿½ der Codetabelle.
+	/**	Bestimmt das Zeichen, gemäß der Codetabelle.
 	 */
 	void determineAsciiCode();
 
-	/**	Fï¿½hrt den software reboot aus.
+	/**	Führt den software reboot aus.
 	 */
 	void reboot();
 
@@ -119,7 +120,7 @@ private:
 	void setLed(char led, bool on);
 
 
-	/**	Hilfsfunktionen fï¿½r den Zugriff auf den Tastaturcontroller
+	/**	Hilfsfunktionen für den Zugriff auf den Tastaturcontroller
 	 */
 	void waitForRead();
 	void waitForWrite();

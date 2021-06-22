@@ -2,12 +2,13 @@
 #include "device/CgaChannel.h"
 #include "device/CPU.h"
 extern CPU cpu;
-extern CgaChannel cga;
+extern CgaChannel screen;
 
 PanicGate::PanicGate(): Gate(-1) { }
 
-void PanicGate::handle()
+bool PanicGate::prologue()
 {
- cga.blueScreen("Panic: Illegal Trap/Interrupt!");
+ screen.blueScreen("Panic: Illegal Trap/Interrupt!");
 	cpu.halt();
+	return false;
 }

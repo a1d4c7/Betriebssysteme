@@ -1,4 +1,5 @@
 #include "interrupts/InterruptGuardian.h"
+#include "sync/Monitor.h"
 
 #include "interrupts/PanicGate.h"
 extern PanicGate panicGate;
@@ -25,7 +26,10 @@ InterruptGuardian::InterruptGuardian()
 
 void InterruptGuardian::handle(int num)
 {
-	vectorTable[num]->handle();
+	Gate* gate = vectorTable[num];
+	if(gate->prologue()){
+		monitor.runEpilogue(gate);
+	}
 }
 
 void InterruptGuardian::registerGate(Gate* gate,int num)

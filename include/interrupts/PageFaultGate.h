@@ -13,7 +13,7 @@ class PageFaultGate: public Gate {
 public:
 	PageFaultGate();
 
-	void handle();
+	bool prologue();
 };
 
 #endif

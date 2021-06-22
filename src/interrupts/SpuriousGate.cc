@@ -4,7 +4,8 @@
 
 SpuriousGate::SpuriousGate(): Gate(SpuriousInterrupt) { }
 
-void SpuriousGate::handle()
+bool SpuriousGate::prologue()
 {
 	pic.ack();
+	return false;
 }
