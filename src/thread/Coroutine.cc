@@ -1,6 +1,6 @@
 #include "thread/Coroutine.h"
-#include "lib/Debugger.h"
 #include "device/CPU.h"
+#include "sync/Monitor.h"
 
     struct SetupFrame {
         unsigned edi; // nichtfl. Register
@@ -16,6 +16,7 @@
         Coroutine* arg;
     };
 
+    extern Monitor monitor;
 
     /* Diese Funktion hat nur die Aufgabe
 	 * den Rumpf der uebergebenen Coroutine aufzurufen
@@ -28,10 +29,11 @@
 	 */
 	void Coroutine::startup(Coroutine* obj)
     {
-        CPU::enableInterrupts();
+        //CPU::enableInterrupts();
         
+        monitor.leave();
+
         obj->body();
-        //debuggi.fehler("call exit");
         obj->exit();
 
     }

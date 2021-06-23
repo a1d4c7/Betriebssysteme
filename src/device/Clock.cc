@@ -41,6 +41,7 @@
 		pic.enable(PIC::PIT);
     }
 
+
 	/** 	Der Interrupt-Handler fuer die Uhr.
 	 *	Hier ist der Interrupt am PIC zu bestaetigen
 	 *	und die Systemzeit zu aktualisieren.
@@ -63,33 +64,14 @@
 	 *	die "checkSlice" Methode des Schedulers auf,
 	 *	um diesen ggf. zum praeemptiven Rescheduling zu veranlassen.
 	 */
-	void Clock::handle()
-    {
+	//TODO
+	bool Clock::prologue()
+	{
 		tickCount += 1;
 		pic.ack();
-		
-		//scheduler.reschedule(); 
 
+	}
+	void Clock::epilogue()
+	{
 		scheduler.checkSlice();
-
-
-		//testfaelle
-
-		//if (tickCount % 40 == 0) out.print("#"); //ein zeichen pro sekunde ausgeben
-
-		/* //propeller
-		if (tickCount % 40 == 0) 
-		{
-			switch (tickCount % 160)
-			{
-				case 0 * 40: out.print("\r/"); break;
-				case 1 * 40: out.print("\r-"); break;
-				case 2 * 40: out.print("\r\\"); break;
-				case 3 * 40: out.print("\r|"); break;	
-				default:
-					break;
-			}
-		}
-		// */
-
-    }
+	}

@@ -70,9 +70,16 @@ public:
 	 */
 	int ticks()
 	{
+		return tickCount;
+	}
+
+	void resetTicks()
+	{
+		tickCount = 0;
 	}
 
 private:
+	int tickCount;
 };
 
 extern Clock clock;

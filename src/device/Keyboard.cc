@@ -18,15 +18,30 @@ Keyboard::Keyboard() :
 	pic.enable(PIC::KEYBOARD);
 }
 
-void Keyboard::handle()
+//TODO
+/**	Die Interruptbehandlungsfunktion.
+ */
+bool Keyboard::prologue()
 {
+	//schreibe zeichen in nicht analysierten puffer
 	if(ctrlPort.read() & AUX_BIT){
 		//behandle hier die Maus
+		return false;
 	}else{
 		scanCode = dataPort.read();
-		analyzeScanCode();
+		scanCodeBuffer.add(scanCode);
 	}
+
 	pic.ack(PIC::KEYBOARD);
+
+	return true;
+}
+
+
+void Keyboard::epilogue()
+{
+	//scancode variable setzen (nÃ¤chstes zeichen aus dem nicht analysierten puffer)
+	analyzeScanCode();
 }
 
 
@@ -52,15 +67,19 @@ int Keyboard::read(char* data, int size)
 
 void Keyboard::analyzeScanCode()
 {
+	//TODO eventuell intlocks wegen geteilten variablen (mode, prefix)
+
+	unsigned char int_scancode = scanCodeBuffer.get();
+	
 	if(	(mode & (CTRL_LEFT | ALT_LEFT)) &&
-		(scanCode == CodeTable::DEL)){
+		(int_scancode == CodeTable::DEL)){
 			reboot();
 	}
-	if(scanCode == PREFIX1 || scanCode == PREFIX2){
-		prefix = scanCode;
+	if(int_scancode == PREFIX1 || int_scancode == PREFIX2){
+		prefix = int_scancode;
 		return;
 	}
-	if(scanCode & BREAK_BIT){
+	if(int_scancode & BREAK_BIT){
 		keyReleased();
 	}else{
 		keyHit();
@@ -193,7 +212,7 @@ void Keyboard::reboot ()
 	*(unsigned short*) 0x472 = 0x1234;
 
 	waitForWrite();
-	ctrlPort.write (RESET_CODE);     // Reset auslösen
+	ctrlPort.write (RESET_CODE);     // Reset auslï¿½sen
 }
 
 
