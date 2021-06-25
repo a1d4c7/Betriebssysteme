@@ -7,8 +7,8 @@ PIC pic;
 PIT pit;
 Clock clock(20000);
 Keyboard keyboard;
-CgaChannel screen;
-Console console(keyboard,screen);
+CgaChannel cga;
+Console console(keyboard,cga);
 PrintStream out(console);
 ActivityScheduler scheduler;
 

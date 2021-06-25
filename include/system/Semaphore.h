@@ -5,19 +5,23 @@
 #include "sync/KernelLock.h"
 
 /**
- *  Semaphore: Die Semaphorenimplementation für Benutzerprozesse
+ *  Semaphore: Die Semaphorenimplementation fï¿½r Benutzerprozesse
  */
 class Semaphore: private KernelSemaphore {
 public:
-	Semaphore(int count = 1)
+	Semaphore(int count = 1) : KernelSemaphore(count)
 	{}
 
 	void wait()
 	{
+		KernelLock lock;
+		KernelSemaphore::wait();
 	}
 
 	void signal()
 	{
+		KernelLock lock;
+		KernelSemaphore::signal();
 	}
 };
 

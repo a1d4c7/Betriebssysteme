@@ -54,7 +54,9 @@ SYSTEM_CC = \
 	interrupts/SpuriousGate.cc \
 	io/PrintStream.cc \
 	lib/Queue.cc \
+	sync/KernelSemaphore.cc \
 	sync/Monitor.cc \
+	system/Console.cc \
 	thread/Activity.cc \
 	thread/ActivityScheduler.cc \
 	thread/Coroutine.cc \

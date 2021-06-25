@@ -19,7 +19,7 @@ extern PIC pic;
 extern PIT pit;
 extern Clock clock;
 extern Keyboard keyboard;
-extern CgaChannel screen;
+extern CgaChannel cga;
 extern PrintStream out;
 extern ActivityScheduler scheduler;
 

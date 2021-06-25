@@ -5,13 +5,13 @@
 #include "device/CPU.h"
 extern CPU cpu;
 extern PrintStream out;
-extern CgaChannel screen;
+extern CgaChannel cga;
 
 PageFaultGate::PageFaultGate(): Gate(PageFault) { }
 
 bool PageFaultGate::prologue()
 {
-	screen.blueScreen("Panic! PageFault at address: ");
+	cga.blueScreen("Panic! PageFault at address: ");
     out.print(CPU::getCR2());
 	cpu.halt();
 	return false;

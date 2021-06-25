@@ -70,6 +70,7 @@
 		tickCount += 1;
 		pic.ack();
 
+		return true;
 	}
 	void Clock::epilogue()
 	{
