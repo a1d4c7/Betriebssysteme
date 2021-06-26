@@ -22,3 +22,5 @@ Gate::~Gate()
 	if (num > 0)
 		interruptGuardian.registerGate(&panicGate,num);
 }
+
+void operator delete(void*, unsigned int) {}
