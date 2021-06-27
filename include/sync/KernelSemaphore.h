@@ -19,7 +19,7 @@ public:
 	void signal();
 
 private:
-	int counter;
+	volatile int counter;
 	Queue waiting;
 
 };

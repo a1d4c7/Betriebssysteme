@@ -3,9 +3,9 @@
 
 
 
-	Console::Console(InputChannel& input, OutputChannel& output) : input(input), output(output)
+	Console::Console(InputChannel& input, OutputChannel& output) : input(input), output(output), sync(Semaphore(1))
     {   
-        sync = Semaphore(1); //semaphore ist direkt frei gegeben
+        //semaphore ist direkt frei gegeben
     }
 
 	/** 	Konsole reservieren

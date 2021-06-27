@@ -6,7 +6,7 @@
 void KernelSemaphore::wait()
 {
     //TODO locks
-    if (counter > 0) //es sind signale im haus
+    if (counter > 0) //es sind signale da
     {
         counter -= 1; //Signal wegnehmen
     }
@@ -16,7 +16,6 @@ void KernelSemaphore::wait()
         waiting.enqueue(running);
         running->sleep();
     }
-    
 }
 
 void KernelSemaphore::signal()
