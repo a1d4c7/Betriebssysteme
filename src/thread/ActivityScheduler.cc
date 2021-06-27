@@ -2,6 +2,7 @@
 #include "thread/Activity.h"
 #include "interrupts/IntLock.h"
 #include "device/Clock.h"
+#include "sync/KernelLock.h"
 
 #include "lib/Debugger.h"
 
@@ -11,7 +12,7 @@
 	 */
 	void ActivityScheduler::suspend()
     {
-        IntLock lock;
+        KernelLock lock;
 
         Activity* running = (Activity*) active();
         running->changeTo(Activity::BLOCKED);
@@ -27,7 +28,7 @@
 	 */
 	void ActivityScheduler::kill(Activity* a)
     {
-        IntLock lock;
+        KernelLock lock;
         
         a->changeTo(Activity::ZOMBIE);
 
@@ -91,7 +92,7 @@
             while (isEmpty)
             {
                 {
-                    IntLock lock;
+                    KernelLock lock;
                     CPU::enableInterrupts();
                     CPU::halt();
                 }
@@ -123,7 +124,7 @@
 	 */
 	void ActivityScheduler::checkSlice()
     {
-        IntLock lock;
+        KernelLock lock;
         
         if (isEmpty) return;
 

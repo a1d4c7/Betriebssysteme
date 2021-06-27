@@ -5,6 +5,7 @@
 #include "thread/ActivityScheduler.h"
 #include "interrupts/IntLock.h"
 #include "lib/Queue.h"
+#include "sync/KernelLock.h"
 
 
 /** Diese Klasse stellt einen begrenzten synchronisierten
@@ -64,7 +65,7 @@ public:
 	 */
 	T get()
 	{
-		IntLock lock; //aendern von pointern
+		KernelLock lock; //aendern von pointern
 
 		while (isEmpty)
 		{

@@ -3,6 +3,7 @@
 #include "thread/Schedulable.h"
 #include "thread/ActivityScheduler.h"
 #include "interrupts/IntLock.h"
+#include "sync/KernelLock.h"
 
 
 
@@ -47,7 +48,7 @@
 	 */
 	void Activity::sleep()
     {
-		IntLock lock; //Statusaenderung sichern um inkonsistenz zu vermeiden
+		KernelLock lock; //Statusaenderung sichern um inkonsistenz zu vermeiden
 
 		//falls die activity nicht laeuft muss nur der status geaendert werden
 		if (!this->isRunning()) 
@@ -67,7 +68,7 @@
 	 */
 	void Activity::wakeup()
     {
-		IntLock lock; //Statusaenderung sichern um inkonsistenz zu vermeiden
+		KernelLock lock; //Statusaenderung sichern um inkonsistenz zu vermeiden
 
 		//um zu verhindern das auf nicht wartenden activities wakeup aufgerufen wird
 		if (this->isBlocked())
@@ -81,7 +82,7 @@
 	 */
 	void Activity::yield()
     {
-		IntLock lock; //Statusaenderung sichern um inkonsistenz zu vermeiden
+		KernelLock lock; //Statusaenderung sichern um inkonsistenz zu vermeiden
 
 		this->changeTo(READY);
 		
