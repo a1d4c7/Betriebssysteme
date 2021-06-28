@@ -67,19 +67,18 @@ int Keyboard::read(char* data, int size)
 
 void Keyboard::analyzeScanCode()
 {
-	//TODO eventuell intlocks wegen geteilten variablen (mode, prefix)
 
-	unsigned char int_scancode = scanCodeBuffer.get();
+	scanCode = scanCodeBuffer.get();
 	
 	if(	(mode & (CTRL_LEFT | ALT_LEFT)) &&
-		(int_scancode == CodeTable::DEL)){
+		(scanCode == CodeTable::DEL)){
 			reboot();
 	}
-	if(int_scancode == PREFIX1 || int_scancode == PREFIX2){
-		prefix = int_scancode;
+	if(scanCode == PREFIX1 || scanCode == PREFIX2){
+		prefix = scanCode;
 		return;
 	}
-	if(int_scancode & BREAK_BIT){
+	if(scanCode & BREAK_BIT){
 		keyReleased();
 	}else{
 		keyHit();

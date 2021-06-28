@@ -30,7 +30,7 @@ void Hello::run()
 {
 	console.attach();
 	out.print(name);
-	out.println("is running ");
+	out.println(" is running ");
 	console.detach();
 
 	for (int i = 0; i < runs; i++) {
@@ -55,6 +55,6 @@ void Hello::run()
 
 	console.attach();
 	out.print(name);
-	out.println("finished");
+	out.println(" finished");
 	console.detach();
 }
