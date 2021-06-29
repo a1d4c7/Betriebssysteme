@@ -94,7 +94,7 @@
                 {
                     KernelLock lock;
                     monitor.leave();
-                    //CPU::enableInterrupts(); 
+                    //CPU::enableInterrupts();  
                     CPU::halt();
                 }
                 
