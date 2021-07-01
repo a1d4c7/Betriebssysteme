@@ -84,6 +84,12 @@ public:
 		return elem;
 	}
 
+
+	bool isBufferEmpty()
+	{
+		return isEmpty;
+	}
+
 private:
 	T buffer[size];
 	T* in;  //naechstes zu schreibender Platz

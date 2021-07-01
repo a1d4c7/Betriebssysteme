@@ -76,6 +76,7 @@ public:
 	 */
 	void yield()
 	{
+		KernelLock lock;
 		Activity::yield();
 	}
 

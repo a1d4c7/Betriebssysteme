@@ -40,8 +40,15 @@ bool Keyboard::prologue()
 
 void Keyboard::epilogue()
 {
-	//scancode variable setzen (nächstes zeichen aus dem nicht analysierten puffer)
-	analyzeScanCode();
+	// scancode variable setzen (nächstes zeichen aus dem nicht analysierten puffer)
+	// direkt alle analysieren _/
+	// spätestens Do 9:15 Uhr
+
+	while (!scanCodeBuffer.isBufferEmpty())
+	{
+		scanCode = scanCodeBuffer.get();
+		analyzeScanCode();
+	}	
 }
 
 
@@ -66,10 +73,7 @@ int Keyboard::read(char* data, int size)
 }
 
 void Keyboard::analyzeScanCode()
-{
-
-	scanCode = scanCodeBuffer.get();
-	
+{	
 	if(	(mode & (CTRL_LEFT | ALT_LEFT)) &&
 		(scanCode == CodeTable::DEL)){
 			reboot();

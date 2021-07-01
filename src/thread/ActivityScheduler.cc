@@ -12,7 +12,7 @@
 	 */
 	void ActivityScheduler::suspend()
     {
-        KernelLock lock;
+        //KernelLock lock;
 
         Activity* running = (Activity*) active();
         running->changeTo(Activity::BLOCKED);
@@ -28,7 +28,7 @@
 	 */
 	void ActivityScheduler::kill(Activity* a)
     {
-        KernelLock lock;
+        //KernelLock lock;
         
         a->changeTo(Activity::ZOMBIE);
 
@@ -125,7 +125,7 @@
 	 */
 	void ActivityScheduler::checkSlice()
     {
-        KernelLock lock;
+        //KernelLock lock;
         
         if (isEmpty) return;
 

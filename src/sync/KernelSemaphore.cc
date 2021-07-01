@@ -5,7 +5,6 @@
 
 void KernelSemaphore::wait()
 {
-    //TODO locks
     if (counter > 0) //es sind signale da
     {
         counter -= 1; //Signal wegnehmen
@@ -20,7 +19,6 @@ void KernelSemaphore::wait()
 
 void KernelSemaphore::signal()
 {
-    //TODO locks
     Activity* next = (Activity*) waiting.dequeue();
 
     if (next == 0) //warten gerade auf niemanden

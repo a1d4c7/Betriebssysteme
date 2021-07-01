@@ -26,6 +26,7 @@
 	 */
 	int Console::write(const char* data, int size)
     {  
+		KernelLock lock;
         return output.write(data,size);        
     }
 
@@ -38,13 +39,40 @@
 	 */
 	int Console::read(char* data, int size)
     {  
-        return input.read(data, size);
+		//TODO NB  _/
+		//eventuell methoden in console schützen _/
+		//keyboard epilogue _/
+
+		int counter = 0;
+
+		while (true)
+		{
+			if (counter == size) return counter;
+			
+			char next = read();
+
+			if (next == '\n') 
+			{
+				counter += 1;
+				return counter;
+			}
+
+			data[counter] = next;
+			counter += 1;
+
+			KernelLock lock;
+			output.write(next);
+
+		}
+
+        return counter;
     }
 
 	/** 	Liefert das n�chste Zeichen aus dem Eingabepuffer zur�ck.
 	 */
 	char Console::read()
     {  
+		KernelLock lock;
         char c;
         input.read(&c, 1);
         return c;

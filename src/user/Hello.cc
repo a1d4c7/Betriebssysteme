@@ -41,7 +41,7 @@ void Hello::run()
 
 		int size = console.read(line, LINE_SIZE);
 
-		out.print("got: ");
+		out.print("\ngot: ");
 		out.print(size);
 		out.print(" ");
 
